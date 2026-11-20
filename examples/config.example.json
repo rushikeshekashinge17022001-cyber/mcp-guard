@@ -1,0 +1,21 @@
+{
+  "approval": { "timeout_seconds": 55, "ui": "auto" },
+  "policy": {
+    "default": "ask",
+    "gated_methods": ["tools/call"],
+    "rules": [
+      { "server": "demo", "tool": "get_weather", "action": "allow", "reason": "harmless read-only demo tool" },
+      { "tool": "*delete*", "action": "ask" }
+    ]
+  },
+  "proxy": { "fail_mode": "closed", "autostart_daemon": true, "block_style": "tool_error" },
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 8787,
+    "path_secret": "auto",
+    "routes": {
+      "demo": { "command": "python3", "args": ["/ABSOLUTE/PATH/TO/examples/demo_server.py"] },
+      "remote-example": { "url": "https://mcp.example.com/mcp", "headers": { "Authorization": "Bearer <token>" } }
+    }
+  }
+}
